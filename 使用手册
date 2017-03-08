@@ -56,3 +56,12 @@ export class HomeComponent {
     ]
   }
   // 下一个
+  moveNext() {
+    this.swiperContainer.swiper.slideNext();
+  }
+  // 上一个
+  movePrev() {
+    this.swiperContainer.swiper.slidePrev();
+  }
+
+}
