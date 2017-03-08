@@ -1,0 +1,58 @@
+1、安装模块
+
+npm install swiper angular2-swiper --save-dev
+2、配置angular-cli.json，样式文件
+
+"styles": [
+     "../node_modules/swiper/dist/css/swiper.css"
+],
+3、配置app.module.ts
+
+import {KSSwiperModule} from "angular2-swiper";
+...
+imports: [
+    KSSwiperModule
+  ],
+...
+4、模板文件
+
+<div class="myslides">
+  <ks-swiper-container [options]="swipeOptions">
+    <ks-swiper-slide *ngFor="let item of data">
+      <img src="http://api.randomuser.me/portraits/thumb/men/{{item}}.jpg">
+    </ks-swiper-slide>
+  </ks-swiper-container>
+  <button (click)="movePrev()">Prev</button>
+  <button (click)="moveNext()">Next</button>
+</div>
+5、组件
+
+import {Component, ViewChild, AfterViewInit} from "@angular/core";
+import {KSSwiperContainer, KSSwiperSlide} from 'angular2-swiper';
+@Component({
+  selector: "pri-home",
+  templateUrl: "../templates/home.component.html"
+})
+export class HomeComponent {
+  // 单机上一个下一个的时候调用封装子组件中的方法
+  @ViewChild(KSSwiperContainer)
+  swiperContainer:KSSwiperContainer;
+
+  // 图片数组
+  data:Array<number>;
+  // 配置
+  swipeOptions:any;
+
+  constructor() {
+    this.swipeOptions = {
+      // 每页显示几张图片
+      slidesPerView: 4,
+      // 是否循环
+      loop: false,
+      spaceBetween: 5
+    };
+    this.data = [
+      1, 2, 3, 4, 5, 6
+    ]
+  }
+  // 下一个
